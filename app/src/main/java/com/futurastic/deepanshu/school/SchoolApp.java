@@ -11,6 +11,11 @@ public class SchoolApp extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        initializeApplicationComponent();
+    }
+
+    private void initializeApplicationComponent(){
+        DaggerApplicationComponent.builder().create();
     }
 
     @Override

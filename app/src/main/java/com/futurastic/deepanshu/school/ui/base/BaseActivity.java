@@ -1,4 +1,4 @@
-package com.futurastic.deepanshu.school;
+package com.futurastic.deepanshu.school.ui.base;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

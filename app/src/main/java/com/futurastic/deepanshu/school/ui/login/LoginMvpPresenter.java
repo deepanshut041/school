@@ -1,5 +1,6 @@
 package com.futurastic.deepanshu.school.ui.login;
 
+import com.futurastic.deepanshu.school.di.PerActivity;
 import com.futurastic.deepanshu.school.ui.base.MvpPresenter;
 
 /**

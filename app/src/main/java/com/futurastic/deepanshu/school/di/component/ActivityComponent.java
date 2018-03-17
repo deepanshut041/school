@@ -1,6 +1,7 @@
 package com.futurastic.deepanshu.school.di.component;
 
 import com.futurastic.deepanshu.school.di.PerActivity;
+import com.futurastic.deepanshu.school.di.module.ActivityModule;
 import com.futurastic.deepanshu.school.ui.login.LoginActivity;
 import com.futurastic.deepanshu.school.ui.main.MainActivity;
 import com.futurastic.deepanshu.school.ui.setting.SettingFragment;

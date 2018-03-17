@@ -22,6 +22,7 @@ import com.futurastic.deepanshu.school.R;
 import com.futurastic.deepanshu.school.R2;
 import com.futurastic.deepanshu.school.ui.base.BaseActivity;
 import com.futurastic.deepanshu.school.ui.login.LoginActivity;
+import com.futurastic.deepanshu.school.ui.setting.SettingFragment;
 
 import javax.inject.Inject;
 

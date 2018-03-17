@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.futurastic.deepanshu.school.SchoolApp;
+import com.futurastic.deepanshu.school.data.DataManager;
 import com.futurastic.deepanshu.school.di.ApplicationContext;
 import com.futurastic.deepanshu.school.di.module.ApplicationModule;
 

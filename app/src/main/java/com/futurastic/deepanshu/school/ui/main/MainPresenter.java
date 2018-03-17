@@ -1,5 +1,6 @@
 package com.futurastic.deepanshu.school.ui.main;
 
+import com.futurastic.deepanshu.school.data.DataManager;
 import com.futurastic.deepanshu.school.ui.base.BasePresenter;
 
 import javax.inject.Inject;

@@ -1,5 +1,7 @@
 package com.futurastic.deepanshu.school.ui.login;
 
+import com.futurastic.deepanshu.school.data.DataManager;
+import com.futurastic.deepanshu.school.data.api.models.ApiError;
 import com.futurastic.deepanshu.school.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -18,6 +20,11 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
     @Override
     public void onAttach(V mvpView) {
         super.onAttach(mvpView);
+    }
+
+    @Override
+    public void handleApiError(ApiError error) {
+
     }
 
 }

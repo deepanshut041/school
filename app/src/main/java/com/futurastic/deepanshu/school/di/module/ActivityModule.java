@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 
+import com.futurastic.deepanshu.school.data.DataManager;
 import com.futurastic.deepanshu.school.di.ActivityContext;
 import com.futurastic.deepanshu.school.di.PerActivity;
 import com.futurastic.deepanshu.school.ui.login.LoginMvpPresenter;
@@ -58,10 +59,6 @@ public class ActivityModule {
         return new LinearLayoutManager(activity);
     }
 
-    /**
-     * We are providing the SplashMvpPresenter by constructing it, because we want the Dependency
-     * graph to provide the interfaces for these classes for loose binding to its implementation.
-     */
     @Provides
     @PerActivity
     SplashMvpPresenter<SplashMvpView> provideSplashPresenter(DataManager dataManager) {

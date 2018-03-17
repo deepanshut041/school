@@ -7,6 +7,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.futurastic.deepanshu.school.di.component.ActivityComponent;
+
 import butterknife.Unbinder;
 
 /**

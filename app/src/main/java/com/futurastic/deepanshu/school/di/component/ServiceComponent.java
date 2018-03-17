@@ -1,6 +1,7 @@
 package com.futurastic.deepanshu.school.di.component;
 
 import com.futurastic.deepanshu.school.di.PerService;
+import com.futurastic.deepanshu.school.di.module.ServiceModule;
 
 import dagger.Component;
 

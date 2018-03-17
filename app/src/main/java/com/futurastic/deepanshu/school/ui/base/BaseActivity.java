@@ -8,10 +8,18 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import com.futurastic.deepanshu.school.R;
+import com.futurastic.deepanshu.school.SchoolApp;
+import com.futurastic.deepanshu.school.di.component.ActivityComponent;
+import com.futurastic.deepanshu.school.di.module.ActivityModule;
+import com.futurastic.deepanshu.school.ui.login.LoginActivity;
+import com.futurastic.deepanshu.school.utils.CommonUtils;
 import com.futurastic.deepanshu.school.utils.NetworkUtils;
 
 import butterknife.Unbinder;
@@ -34,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         super.onCreate(savedInstanceState);
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
-                .applicationComponent(MvpApp.get(this).getComponent())
+                .applicationComponent(SchoolApp.get(this).getComponent())
                 .build();
 
     }

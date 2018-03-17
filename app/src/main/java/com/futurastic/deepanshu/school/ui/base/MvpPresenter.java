@@ -1,5 +1,7 @@
 package com.futurastic.deepanshu.school.ui.base;
 
+import com.futurastic.deepanshu.school.data.api.models.ApiError;
+
 /**
  * Created by deepanshu on 17/3/18.
  */

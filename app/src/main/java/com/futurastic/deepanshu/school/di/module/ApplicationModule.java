@@ -1,75 +1,112 @@
 package com.futurastic.deepanshu.school.di.module;
 
-import com.google.gson.Gson;
+import android.app.Application;
+import android.content.Context;
 
-import java.util.concurrent.TimeUnit;
+import com.futurastic.deepanshu.school.BuildConfig;
+import com.futurastic.deepanshu.school.R;
+import com.futurastic.deepanshu.school.di.ApiInfo;
+import com.futurastic.deepanshu.school.di.ApplicationContext;
+import com.futurastic.deepanshu.school.di.DatabaseInfo;
+import com.futurastic.deepanshu.school.di.PreferenceInfo;
+import com.futurastic.deepanshu.school.utils.AppConstants;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
-import io.reactivex.plugins.RxJavaPlugins;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by deepanshu on 17/3/18.
  */
 
+@Module
 public class ApplicationModule {
 
-    private String mBaseUrl;
+    private final Application mApplication;
 
-    public ApplicationModule(String mBaseUrl) {
-        this.mBaseUrl = mBaseUrl;
+    public ApplicationModule(Application application) {
+        mApplication = application;
     }
 
-    @Singleton
     @Provides
-    GsonConverterFactory provideGsonConverterFactory(){
-        GsonConverterFactory factory = GsonConverterFactory.create();
-        return factory;
+    @ApplicationContext
+    Context provideContext() {
+        return mApplication;
     }
 
-    @Singleton
     @Provides
-    @Named("ok-1")
-    OkHttpClient provideOkHttpClient1() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .build();
+    Application provideApplication() {
+        return mApplication;
     }
 
-    @Singleton
     @Provides
-    @Named("ok-2")
-    OkHttpClient provideOkHttpClient2() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .build();
+    @DatabaseInfo
+    String provideDatabaseName() {
+        return AppConstants.DB_NAME;
     }
 
-    @Singleton
     @Provides
-    RxJavaCallAdapterFactory provideRxJavaCallAdapterFactory() {
-        return RxJavaCallAdapterFactory.create();
+    @ApiInfo
+    String provideApiKey() {
+        return BuildConfig.API_KEY;
     }
 
-
-    @Singleton
     @Provides
-    Retrofit provideRetrofit(OkHttpClient client, GsonConverterFactory converterFactory, RxJavaCallAdapterFactory adapterFactory){
-        GsonConverterFactory factory = GsonConverterFactory.create();
-        RxJavaCallAdapterFactory factory1 = RxJavaCallAdapterFactory.create();
-        return new Retrofit.Builder()
-                .baseUrl(mBaseUrl)
-                .addConverterFactory(converterFactory)
-                .addCallAdapterFactory(adapterFactory)
-                .client(client)
+    @PreferenceInfo
+    String providePreferenceName() {
+        return AppConstants.PREF_NAME;
+    }
+
+    /**
+     * We are providing the AppDataManager by constructing it, because we want the Dependency
+     * graph to provide the interfaces for these classes for loose binding to its implementation.
+     */
+    @Provides
+    @Singleton
+    DataManager provideDataManager(DbHelper dbHelper, PreferencesHelper preferencesHelper, ApiHelper apiHelper) {
+        return new AppDataManager(dbHelper, preferencesHelper, apiHelper);
+    }
+
+    @Provides
+    @Singleton
+    DbHelper provideDbHelper(DbOpenHelper dbOpenHelper) {
+        return new AppDbHelper(dbOpenHelper);
+    }
+
+    @Provides
+    @Singleton
+    DbOpenHelper provideDbOpenHelper(@ApplicationContext Context context, @DatabaseInfo String name) {
+        return new DbOpenHelper(context, name);
+    }
+
+    @Provides
+    @Singleton
+    PreferencesHelper providePreferencesHelper(
+            @ApplicationContext Context context,
+            @PreferenceInfo String prefFileName) {
+        return new AppPreferencesHelper(context, prefFileName);
+    }
+
+    @Provides
+    @Singleton
+    ApiHelper provideApiHelper(ApiHeader apiHeader) {
+        return new AppApiHelper(apiHeader);
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader provideApiHeader(@ApiInfo String apiKey, DbHelper dbHelper, PreferencesHelper preferencesHelper) {
+        return new ApiHeader(apiKey, dbHelper, preferencesHelper);
+    }
+
+    @Provides
+    @Singleton
+    CalligraphyConfig provideCalligraphyDefaultConfig() {
+        return new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/source-sans-pro/SourceSansPro-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
                 .build();
     }
 }

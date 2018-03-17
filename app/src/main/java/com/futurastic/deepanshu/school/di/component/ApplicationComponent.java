@@ -1,5 +1,10 @@
 package com.futurastic.deepanshu.school.di.component;
 
+import android.app.Application;
+import android.content.Context;
+
+import com.futurastic.deepanshu.school.SchoolApp;
+import com.futurastic.deepanshu.school.di.ApplicationContext;
 import com.futurastic.deepanshu.school.di.module.ApplicationModule;
 
 import javax.inject.Singleton;
@@ -15,5 +20,12 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
+    void inject(SchoolApp app);
 
+    @ApplicationContext
+    Context context();
+
+    Application application();
+
+    DataManager getDataManager();
 }
